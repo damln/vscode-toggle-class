@@ -9,5 +9,5 @@ Then you can display back the original classes.
 Very useful when working with Tailwind CSS and you have dozens of classes in the `class` attribute on many HTML nodes.
 
 <p align="center">
-  <img src="https://github.com/damln/vscode-toggle-class/blob/master/images/vscode-demo.gif" />
+  <img src="https://raw.githubusercontent.com/damln/vscode-toggle-class/dead8ef2c224d47b6b26116375ed9914d1c9212b/images/vscode-demo.gif" />
 </p>
