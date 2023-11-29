@@ -11,7 +11,7 @@
   "icon": "images/icon.png",
   "pricing": "Free",
   "license": "MIT",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.84.0"
   },
