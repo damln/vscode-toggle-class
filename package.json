@@ -8,6 +8,8 @@
     "type": "git",
     "url": "https://github.com/damln/vscode-toggle-class.git"
   },
+  "icon": "images/icon.png",
+  "pricing": "Free",
   "license": "MIT",
   "version": "0.0.1",
   "engines": {
