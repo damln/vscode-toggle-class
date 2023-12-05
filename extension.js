@@ -4,7 +4,7 @@ const vscode = require("vscode");
 
 const originalClassesMap = new Map();
 const SEPARATOR = "_URI_SEPARATOR_";
-const CLASS_REGEX = /class=['"]([^'"]*)['"]/g;
+const CLASS_REGEX = /class(Name)?\s*[:=]\s*['"]([^'"]*)['"]/g;
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -26,7 +26,7 @@ function activate(context) {
     const documentText = document.getText();
     const hiddenClassText = documentText.replace(
       CLASS_REGEX,
-      function (_match, classContent, _offset) {
+      function (match, classContent, _offset) {
         /*
 
 				Yeah bro, 2 is enough. It is 62^2 = 3844 combinations.
@@ -40,9 +40,13 @@ function activate(context) {
         const uuid = generateUUID(2);
         const key = `${document.uri}${SEPARATOR}${uuid}`;
 
-        originalClassesMap.set(key, classContent);
+        originalClassesMap.set(key, match);
 
-        return `class="${uuid}"`;
+        const attributeSeparator = match.includes("=") ? "=" : ": ";
+        const quote = match.includes('"') ? '"' : "'";
+        const klassName = match.includes("className") ? "className" : "class";
+
+        return `${klassName}${attributeSeparator}${quote}${uuid}${quote}`;
       }
     );
 
@@ -63,12 +67,12 @@ function activate(context) {
 
     const restoredClassText = documentText.replace(
       CLASS_REGEX,
-      function (_match, classContent, _offset) {
+      function (match, _klass, classContent) {
         const key = `${document.uri}${SEPARATOR}${classContent}`;
         const value = originalClassesMap.get(key);
         const originalClass = value.split(SEPARATOR).at(-1);
 
-        return `class="${originalClass}"`;
+        return originalClass;
       }
     );
 
